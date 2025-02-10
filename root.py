@@ -20,11 +20,22 @@ db_config = {
 
 
 class GetHotTitles:
+    """操作MySQL数据库的类"""
     def __init__(self, url=None, headers=None):
+        """
+         初始化爬虫类
+         :param url: 目标网页的URL
+         :param headers: 请求头，防止被反爬
+        """
         self.url = url
         self.headers = headers
 
     def fetch_titles(self, limit=None):
+        """
+       获取百度热搜榜的标题
+       :param limit: 限制获取的热搜数量
+       :return: 返回一个包含热搜标题的列表
+       """
         try:
             response = requests.get(self.url, headers=self.headers)
             response.raise_for_status()
@@ -38,10 +49,22 @@ class GetHotTitles:
 
 
 class MySqlHelper:
+    """操作MySQL数据库的类"""
+
     def __init__(self, db_config=None):
+        """
+         初始化数据库连接
+         :param db_config: 包含数据库配置信息的字典
+        """
         self.db_config = db_config
 
     def save_data(self, data_list, table="baidu_hot_search", column="title"):
+        """
+        将爬取的数据保存到MySQL数据库
+        :param data_list: 需要存储的热搜标题列表
+        :param table: 目标数据库表名
+        :param column: 目标数据表的列名
+        """
         connection = None
         try:
             connection = connect(**self.db_config)
@@ -62,11 +85,13 @@ class MySqlHelper:
 
 
 if __name__ == "__main__":
+    # 创建爬虫对象并获取热搜标题
     spider = GetHotTitles(url, headers)
     hot_titles = spider.fetch_titles(limit=10)
 
     if hot_titles:
         print("爬取成功")
+        # 创建数据库助手对象，并将数据存入数据库
         db_saver = MySqlHelper(db_config)
         db_saver.save_data(hot_titles)
     else:
