@@ -37,12 +37,18 @@ class GetHotTitles:
        :return: 返回一个包含热搜标题的列表
        """
         try:
+            # 发送get请求获取网页内容
             response = requests.get(self.url, headers=self.headers)
             response.raise_for_status()
+
+            # 用BeatifulSoup 解析网页内容
             soup = BeautifulSoup(response.text, "html.parser")
+
+            # 找到所有符合热搜标题的html元素并提取返回列表
             hot_titles = soup.find_all("div", class_="c-single-text-ellipsis", limit=limit)
             hot_titles_list = [item.get_text(strip=True) for item in hot_titles]
             return hot_titles_list
+
         except requests.exceptions.RequestException as e:
             print(f"爬取失败:{e}")
             return []
@@ -67,13 +73,20 @@ class MySqlHelper:
         """
         connection = None
         try:
+            # 连接数据库
             connection = connect(**self.db_config)
             if connection.is_connected():
                 print("成功连接数据库")
+
+            # 插入数据的SQL语句
             insert_query = f"INSERT INTO {table} ({column}) VALUES (%s)"
+
+            # 使用游标执行sql
             with connection.cursor() as cursor:
                 for data in data_list:
                     cursor.execute(insert_query, (data,))
+
+                # 提交事务
                 connection.commit()
                 print("数据插入成功")
         except Error as e:
