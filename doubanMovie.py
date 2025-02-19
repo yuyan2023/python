@@ -7,19 +7,6 @@ from tools.crawlerTool import CrawlerTool as BaseCrawlerTool
 from tools.mySqlHelper import MySqlHelper as BaseMySqlHelper
 from mysql.connector import connect, Error
 
-# 常见的User-Agent池
-USER_AGENTS = [
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.5993.88 Safari/537.36",
-    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.5938.92 Safari/537.36",
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1",
-    "Mozilla/5.0 (iPad; CPU OS 14_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1"
-]
-
-def get_random_user_agent():
-    """随机选择一个User-Agent"""
-    return random.choice(USER_AGENTS)
-
 def extract_text(item, selector, attr=None):
     element = item.select_one(selector)
     if not element:
@@ -31,8 +18,8 @@ class DoubanMovieCrawler(BaseCrawlerTool):
     def fetch_data(self, limit=None):
         """重写fetch_data，使用优化后的Cookie和动态User-Agent"""
         headers = {
-            "User-Agent": get_random_user_agent(),
-            "Cookie": 'dbcl2="287095374:/c4tU3fh3x4"; ck=nRWr'  # 优化后的Cookie
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
+            "Cookie": 'dbcl2="287095374:/c4tU3fh3x4"; ck=nRWr'
         }
         try:
             session = requests.Session()
@@ -45,10 +32,7 @@ class DoubanMovieCrawler(BaseCrawlerTool):
         except requests.exceptions.RequestException as e:
             print(f"Request failed: {e}")
             return []
-        finally:
-            delay = random.uniform(1, 3)
-            print(f"Sleeping for {delay:.2f} seconds")
-            time.sleep(delay)
+
 
     def parse_data(self, soup, limit=None):
         movies = []
@@ -94,8 +78,8 @@ class MySqlHelper(BaseMySqlHelper):
             if connection and connection.is_connected():
                 connection.close()
 
-def fetch_all_pages(base_url, pages=8):
-    """分页爬取所有页面数据，每页使用不同User-Agent和优化后的Cookie"""
+def fetch_all_pages(base_url, pages=None):
+    """分页爬取所有页面数据"""
     all_movies = []
     for i in range(pages):
         url = f"{base_url}&start={i*25}"
