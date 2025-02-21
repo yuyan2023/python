@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2280e52c-53a5-408a-8a68-bde2a8486688" name="Changes" comment="爬取内容">
+      <change afterPath="$PROJECT_DIR$/douban_data/insert.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/doubanMovie.py" beforeDir="false" afterPath="$PROJECT_DIR$/doubanMovie.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tools/mySqlHelper.py" beforeDir="false" afterPath="$PROJECT_DIR$/tools/mySqlHelper.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,18 +37,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.BaiduHotSearch.executor&quot;: &quot;Run&quot;,
-    &quot;Python.doubanMovie.executor&quot;: &quot;Run&quot;,
-    &quot;Python.root.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.BaiduHotSearch.executor": "Run",
+    "Python.doubanMovie.executor": "Run",
+    "Python.insert.executor": "Run",
+    "Python.root.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\pythonCrawler\pythonProject\douban_data" />
       <recent name="D:\pythonCrawler\pythonProject\tools" />
     </key>
   </component>
@@ -135,7 +139,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739866276436</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="爬取内容">
+      <option name="closed" value="true" />
+      <created>1739953338750</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1739953338750</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
